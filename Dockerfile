@@ -18,14 +18,9 @@ STOPSIGNAL SIGRTMIN+3
 VOLUME [ "/sys/fs/cgroup", "/run", "/run/lock" ]
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get install -y apt-utils
-RUN apt-get install -y pkg-config
-
 RUN apt-get -t stretch-backports install -y --no-install-recommends \
-	libreadline-dev libssl-dev
-#
-RUN apt-get -t stretch-backports install -y --no-install-recommends \
-	ca-certificates curl openssh-client openssh-server openssl
+	pkg-config libreadline-dev ca-certificates curl \
+	openssh-client openssh-server openssl libssl-dev
 
 RUN curl -fsSL https://gist.githubusercontent.com/ngonzalez/106e8ac9f0358e4388c0b3496adf771c/raw/e78e617a07dd8ed4b88ec95b450972bc96da577e/install.sh -o /install.sh
 RUN chmod +x install.sh
