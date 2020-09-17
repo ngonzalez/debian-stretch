@@ -1,11 +1,22 @@
-ARG TAG=stretch
+ARG TAG=sid
 FROM debian:${TAG}
 
-# systemd
-RUN echo "deb http://deb.debian.org/debian stretch-backports main" > /etc/apt/sources.list.d/debian-backports.list
+# env
+ENV DEBIAN_FRONTEND noninteractive
+ENV RUNLEVEL 1
+ENV TERM xterm
+
+# debian
 RUN apt-get update -yq
 RUN apt-get dist-upgrade -yq
-RUN apt-get -t stretch-backports install -y --no-install-recommends systemd systemd-sysv
+
+# Base Packages
+RUN apt-get install -yq ca-certificates curl
+RUN apt-get install -yq libreadline8 libreadline-dev
+RUN apt-get install -yq libssl-dev openssl
+
+# systemd
+RUN apt-get install -yq systemd systemd-sysv
 FROM debian:${TAG}
 COPY --from=0 / /
 ENV container docker
@@ -15,13 +26,6 @@ VOLUME [ "/sys/fs/cgroup", "/run", "/run/lock" ]
 # Timezone
 RUN rm -f /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
-
-# Base Packages
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TERM=xterm
-RUN apt-get install -yq dialog libreadline-dev pkg-config
-RUN apt-get install -yq ca-certificates curl
-RUN apt-get install -yq libssl-dev openssl
 
 # locales
 RUN apt-get install -yq locales
@@ -91,14 +95,46 @@ RUN touch /etc/profile.d/rbenv.sh
 RUN echo "export PATH=\"/usr/local/rbenv/bin:\$PATH\"" >> /etc/profile.d/rbenv.sh
 RUN echo "eval \"\$(rbenv init -)\"" >> /etc/profile.d/rbenv.sh
 
+# redis
+RUN apt-get install -yq redis-server
+RUN curl https://git.io/JURWX -o /etc/redis/redis.conf
+
+# PostgreSQL
+RUN apt-get install -yq postgresql-12
+RUN echo "host all all 0.0.0.0/0 trust" >> /etc/postgresql/12/main/pg_hba.conf
+
 # vim
 RUN apt-get install -yq vim
 RUN	curl -fsSL https://git.io/JUROM -o /etc/vim/vimrc.local
 RUN echo "GIT_EDITOR=vim" > /etc/profile.d/git.sh
 
+# elastic dependencies
+RUN apt-get install -yq openjdk-8-jdk wget gnupg
+RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+RUN apt-get install -yq apt-transport-https
+RUN echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-7.x.list
+RUN apt-get update -yq
+
+# elasticsearch
+RUN apt-get install -yq elasticsearch
+RUN curl -fsSL https://git.io/JURi8 -o /etc/elasticsearch/elasticsearch.yml
+
+# logstash
+RUN apt-get install -yq logstash
+RUN curl -fsSL https://git.io/JURiP -o /etc/logstash/conf.d/logstash.conf
+RUN curl -fsSL https://git.io/JURi1 -o /etc/logstash/patterns
+
+# kibana
+RUN apt-get install -yq kibana
+RUN curl -fsSL https://git.io/JURiF -o /etc/logstash/patterns
+
+# filebeat
+RUN apt-get install -yq filebeat
+RUN curl -fsSL https://git.io/JURPy -o /etc/filebeat/filebeat.yml
+
 # rsyslog
 RUN apt-get install -yq rsyslog
-# RUN echo "*.* @@127.0.0.1:4000" > /etc/rsyslog.d/logstash.conf
+RUN echo "*.* @@127.0.0.1:4000" > /etc/rsyslog.d/logstash.conf
 
 # system init
 CMD [ "/sbin/init" ]
