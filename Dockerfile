@@ -11,15 +11,9 @@ ENV RUNLEVEL 1
 ENV TERM xterm
 
 # debconf
-RUN apt-get install -yq debconf
+RUN apt-get install -yq debconf dialog libreadline8 libreadline-dev
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN dpkg-reconfigure debconf
-
-# curl
-RUN apt-get install -yq ca-certificates curl
-
-# openssl
-RUN apt-get install -yq libssl-dev openssl
 
 # systemd
 RUN apt-get install -yq systemd systemd-sysv
@@ -29,16 +23,18 @@ ENV container docker
 STOPSIGNAL SIGRTMIN+3
 VOLUME [ "/sys/fs/cgroup", "/run", "/run/lock" ]
 
-# Timezone
-RUN rm -f /etc/localtime
-RUN ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
-
 # locales
 RUN apt-get install -yq locales
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 RUN echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 RUN locale-gen en_US.UTF-8
+
+# curl
+RUN apt-get install -yq ca-certificates curl
+
+# openssl
+RUN apt-get install -yq libssl-dev openssl
 
 # APP_USER
 ENV APP_USER=debian
@@ -47,6 +43,10 @@ RUN useradd -m -p $(openssl passwd -1 password) $APP_USER -s /bin/bash
 RUN apt-get install -yq sudo
 RUN echo "$APP_USER ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN curl -fsSL https://git.io/JUROW -o /home/$APP_USER/.bashrc
+
+# Timezone
+RUN rm -f /etc/localtime
+RUN ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
 
 # ssh
 ARG ssh_prv_key
