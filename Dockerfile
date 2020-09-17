@@ -141,7 +141,7 @@ RUN curl -fsSL https://git.io/JURi1 -o /etc/logstash/patterns
 
 # kibana
 RUN apt-get install -yq kibana
-RUN curl -fsSL https://git.io/JURiF -o /etc/logstash/patterns
+RUN curl -fsSL https://git.io/JURpA -o /etc/kibana/kibana.yml
 
 # filebeat
 RUN apt-get install -yq filebeat
@@ -153,7 +153,7 @@ RUN echo "*.* @@127.0.0.1:4000" > /etc/rsyslog.d/logstash.conf
 
 # Nginx
 RUN apt-get install -yq nginx
-RUN curl -fsSL https://git.io/JURNz -o /etc/nginx/sites-available/default
+RUN curl -fsSL https://git.io/JURpx -o /etc/nginx/sites-available/default
 
 # system init
 CMD [ "/sbin/init" ]
