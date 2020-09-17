@@ -44,7 +44,7 @@ ARG ssh_pub_key
 
 RUN apt-get install -yq openssh-client openssh-server
 
-RUN mkdir -p /home/$APP_USER/.ssh
+RUN mkdir /home/$APP_USER/.ssh
 RUN chmod 700 /home/$APP_USER/.ssh
 
 RUN curl -fsSL https://git.io/JURcF -o /home/$APP_USER/.ssh/config
@@ -74,7 +74,7 @@ RUN apt-get install -yq git-core
 RUN git config --global core.editor vim
 RUN git config --global core.pager less
 RUN curl -fsSL https://git.io/JURsx -o /home/$APP_USER/.gitconfig
-RUN mkdir -p /usr/local/git
+RUN mkdir /usr/local/git
 RUN chown $APP_USER: /usr/local/git
 RUN runuser -l $APP_USER -c "git clone git@github.com:git/git.git /usr/local/git &>/dev/null"
 RUN apt-get install -yq cmake
