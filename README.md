@@ -8,6 +8,7 @@ docker build github.com/ngonzalez/debian-stretch -t debian \
 docker run -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
                --cap-add SYS_ADMIN \
                -p 22:22 \
+               -p 80:80 \
                debian:latest
 ```
 
