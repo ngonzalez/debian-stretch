@@ -10,10 +10,11 @@ ENV TERM xterm
 RUN apt-get update -yq
 RUN apt-get dist-upgrade -yq
 
-# Base Packages
-RUN apt-get install -yq ca-certificates curl
-RUN apt-get install -yq libreadline8 libreadline-dev
+# ssl
 RUN apt-get install -yq libssl-dev openssl
+
+# curl
+RUN apt-get install -yq ca-certificates curl
 
 # systemd
 RUN apt-get install -yq systemd systemd-sysv
