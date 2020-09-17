@@ -20,5 +20,5 @@ docker inspect -f "{{ .NetworkSettings.IPAddress }}" <container_name>
 ```
 
 ```
-docker prune -a
+docker system prune -a
 ```
