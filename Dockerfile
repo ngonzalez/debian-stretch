@@ -1,4 +1,4 @@
-ARG TAG=sid
+ARG TAG=stretch
 FROM debian:${TAG}
 
 # debian
@@ -11,12 +11,18 @@ ENV RUNLEVEL 1
 ENV TERM xterm
 
 # debconf
-RUN apt-get install -yq debconf dialog libreadline8 libreadline-dev
+RUN apt-get install -yq debconf dialog libreadline7 libreadline-dev
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN dpkg-reconfigure debconf
 
+# debian backports
+RUN echo "deb http://deb.debian.org/debian stretch-backports main" > \
+	/etc/apt/sources.list.d/debian-backports.list
+RUN apt-get update -yq && apt-get dist-upgrade -yq
+
 # systemd
-RUN apt-get install -yq systemd systemd-sysv
+RUN apt-get -t stretch-backports install -y --no-install-recommends \
+	systemd systemd-sysv
 FROM debian:${TAG}
 COPY --from=0 / /
 ENV container docker
@@ -106,8 +112,8 @@ RUN apt-get install -yq redis-server
 RUN curl https://git.io/JURWX -o /etc/redis/redis.conf
 
 # PostgreSQL
-RUN apt-get install -yq postgresql-12
-RUN echo "host all all 0.0.0.0/0 trust" >> /etc/postgresql/12/main/pg_hba.conf
+RUN apt-get install -yq postgresql-9.6
+RUN echo "host all all 0.0.0.0/0 trust" >> /etc/postgresql/9.6/main/pg_hba.conf
 
 # vim
 RUN apt-get install -yq vim
