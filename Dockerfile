@@ -81,6 +81,16 @@ RUN apt-get install -yq cmake
 RUN cd /usr/local/git/contrib/diff-highlight && make
 RUN cp -r /usr/local/git/contrib/diff-highlight /usr/share/git-core/contrib/diff-highlight
 
+# rbenv
+RUN mkdir /usr/local/rbenv
+RUN chown $APP_USER: /usr/local/rbenv
+RUN runuser -l $APP_USER -c "git clone git@github.com:rbenv/rbenv.git /usr/local/rbenv &>/dev/null"
+RUN runuser -l $APP_USER -c "git clone git@github.com:rbenv/ruby-build.git /usr/local/rbenv/plugins/ruby-build &>/dev/null"
+CMD [ "/usr/local/rbenv/plugins/ruby-build/install.sh" ]
+RUN touch /etc/profile.d/rbenv.sh
+RUN echo "export PATH=\"/usr/local/rbenv/bin:\$PATH\"" >> /etc/profile.d/rbenv.sh
+RUN echo "eval \"\$(rbenv init -)\"" >> /etc/profile.d/rbenv.sh
+
 # vim
 RUN apt-get install -yq vim
 RUN	curl -fsSL https://git.io/JUROM -o /etc/vim/vimrc.local
