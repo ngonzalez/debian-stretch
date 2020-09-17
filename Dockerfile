@@ -1,20 +1,25 @@
 ARG TAG=sid
 FROM debian:${TAG}
 
+# debian
+RUN apt-get update -yq
+RUN apt-get dist-upgrade -yq
+
 # env
 ENV DEBIAN_FRONTEND noninteractive
 ENV RUNLEVEL 1
 ENV TERM xterm
 
-# debian
-RUN apt-get update -yq
-RUN apt-get dist-upgrade -yq
-
-# ssl
-RUN apt-get install -yq libssl-dev openssl
+# debconf
+RUN apt-get install -yq debconf
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+RUN dpkg-reconfigure debconf
 
 # curl
 RUN apt-get install -yq ca-certificates curl
+
+# openssl
+RUN apt-get install -yq libssl-dev openssl
 
 # systemd
 RUN apt-get install -yq systemd systemd-sysv
