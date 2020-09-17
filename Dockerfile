@@ -50,6 +50,9 @@ RUN apt-get install -yq sudo
 RUN echo "$APP_USER ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN curl -fsSL https://git.io/JUROW -o /home/$APP_USER/.bashrc
 
+# MOTD
+RUN rm -f /etc/motd
+
 # Timezone
 RUN rm -f /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
