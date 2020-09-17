@@ -153,7 +153,6 @@ RUN echo "*.* @@127.0.0.1:4000" > /etc/rsyslog.d/logstash.conf
 
 # Nginx
 RUN apt-get install -yq nginx
-RUN rm -f /etc/nginx/sites-available/default
 RUN curl -fsSL https://git.io/JURNz -o /etc/nginx/sites-available/default
 
 # system init
