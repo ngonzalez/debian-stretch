@@ -18,3 +18,7 @@ docker exec -it <container_name> /bin/bash
 ```
 docker inspect -f "{{ .NetworkSettings.IPAddress }}" <container_name>
 ```
+
+```
+docker prune -a
+```
