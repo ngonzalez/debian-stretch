@@ -8,7 +8,7 @@ RUN apt-get dist-upgrade -yq
 # env
 ENV DEBIAN_FRONTEND noninteractive
 ENV RUNLEVEL 1
-ENV TERM xterm
+ENV TERM xterm-256color
 
 # debconf
 RUN apt-get install -yq debconf dialog libreadline7 libreadline-dev
