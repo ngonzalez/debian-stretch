@@ -49,7 +49,7 @@ RUN echo "$APP_USER ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers
 # .bashrc
 RUN curl -fsSL https://git.io/JUROW -o /root/.bashrc
 RUN curl -fsSL https://git.io/JUROW -o /home/$APP_USER/.bashrc
-RUN RUN chmod 644 /home/$APP_USER/.bashrc
+RUN chmod 644 /home/$APP_USER/.bashrc
 
 # MOTD
 RUN rm -f /etc/motd
