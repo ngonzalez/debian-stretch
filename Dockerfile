@@ -94,8 +94,11 @@ RUN cp /home/$APP_USER/.ssh/id_host.pub /home/$APP_USER/.ssh/authorized_keys
 
 RUN chown -R $APP_USER: /home/$APP_USER/.ssh
 
+# openjdk-8-jdk
+RUN apt-get install -yq openjdk-8-jdk
+
 # elastic dependencies
-RUN apt-get install -yq openjdk-8-jdk wget gnupg
+RUN apt-get install -yq wget gnupg
 RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
 RUN apt-get install -yq apt-transport-https
 RUN echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-7.x.list
