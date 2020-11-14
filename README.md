@@ -8,7 +8,7 @@ docker network create \
 ```
 
 ```
-docker build github.com/ngonzalez/debian-stretch -t debian-stretch \
+docker build github.com/ngonzalez/debian-stretch --no-cache -t debian-stretch \
     --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" \
     --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"
 ```
@@ -24,9 +24,15 @@ docker run -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
 ```
 
 ```
-docker exec -it <container_name> /bin/bash
+docker exec -it <container_name> /bin/zsh
 ```
 
 ```
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container_name>
+```
+
+```
+systemctl start elasticsearch
+systemctl start logstash
+systemctl start kibana
 ```
