@@ -39,6 +39,9 @@ RUN locale-gen en_US.UTF-8
 # curl
 RUN apt-get install -yq ca-certificates curl
 
+# zsh
+RUN apt-get install -yq zsh
+
 # APP_USER
 ENV APP_USER=debian
 RUN echo "APP_USER=$APP_USER" > /etc/profile.d/app_user.sh
@@ -47,9 +50,9 @@ RUN apt-get install -yq sudo
 RUN echo "$APP_USER ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # .bashrc
-RUN curl -fsSL https://git.io/JUROW -o /root/.bashrc
-RUN curl -fsSL https://git.io/JUROW -o /home/$APP_USER/.bashrc
-RUN chmod 644 /home/$APP_USER/.bashrc
+RUN curl -fsSL https://git.io/JUROW -o /root/.zshrc
+RUN curl -fsSL https://git.io/JUROW -o /home/$APP_USER/.zshrc
+RUN chmod 644 /home/$APP_USER/.zshrc
 
 # MOTD
 RUN rm -f /etc/motd
