@@ -113,7 +113,7 @@ RUN curl -fsSL https://git.io/JURi8 -o /etc/elasticsearch/elasticsearch.yml
 
 # logstash
 RUN apt-get install -yq logstash
-RUN curl -fsSL https://git.io/JURiP -o /etc/logstash/conf.d/logstash.conf
+RUN curl -fsSL https://git.io/Jkso9 -o /etc/logstash/conf.d/logstash.conf
 RUN curl -fsSL https://git.io/JURi1 -o /etc/logstash/patterns
 
 # kibana
