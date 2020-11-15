@@ -93,44 +93,10 @@ RUN echo " IdentityFile /home/$APP_USER/.ssh/id_host" >> /home/$APP_USER/.ssh/co
 RUN echo "$ssh_pub_key" > /home/$APP_USER/.ssh/id_host.pub
 RUN chmod 644 /home/$APP_USER/.ssh/id_host.pub
 
-RUN cp /home/$APP_USER/.ssh/id_host.pub /home/$APP_USER/.ssh/authorized_keys
+RUN echo "$ssh_pub_host" > /home/$APP_USER/.ssh/authorized_keys
+RUN chmod 600 /home/$APP_USER/.ssh/authorized_keys
 
 RUN chown -R $APP_USER: /home/$APP_USER/.ssh
-
-# openjdk-8-jdk
-RUN apt-get install -yq openjdk-8-jdk
-
-# elastic dependencies
-RUN apt-get install -yq wget gnupg
-RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
-RUN apt-get install -yq apt-transport-https
-RUN echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-7.x.list
-RUN apt-get update -yq
-
-# elasticsearch
-RUN apt-get install -yq elasticsearch
-RUN curl -fsSL https://git.io/JURi8 -o /etc/elasticsearch/elasticsearch.yml
-
-# logstash
-RUN apt-get install -yq logstash
-RUN curl -fsSL https://git.io/Jkso9 -o /etc/logstash/conf.d/logstash.conf
-RUN curl -fsSL https://git.io/JURi1 -o /etc/logstash/patterns
-
-# kibana
-RUN apt-get install -yq kibana
-RUN curl -fsSL https://git.io/JURpA -o /etc/kibana/kibana.yml
-
-# filebeat
-RUN apt-get install -yq filebeat
-RUN curl -fsSL https://git.io/JURhY -o /etc/filebeat/filebeat.yml
-
-# rsyslog
-RUN apt-get install -yq rsyslog
-RUN echo "*.* @@127.0.0.1:4000" > /etc/rsyslog.d/logstash.conf
-
-# Nginx
-RUN apt-get install -yq nginx
-RUN curl -fsSL https://git.io/JURpx -o /etc/nginx/sites-available/default
 
 # system init
 CMD [ "/sbin/init" ]
