@@ -67,6 +67,7 @@ RUN rm -f /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
 
 # ssh
+ARG ssh_pub_host
 ARG ssh_prv_key
 ARG ssh_pub_key
 
