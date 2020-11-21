@@ -23,7 +23,7 @@ docker run -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
     --name docker-debian-stretch \
     --network br0 \
     -p 2201:22 \
-    -p 192.168.1.10:8001:80 \
+    -p 0.0.0.0:8001:80 \
     -p 4000:4000 \
     -p 5044:5044 \
     debian-stretch:latest
