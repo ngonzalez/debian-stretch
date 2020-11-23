@@ -38,7 +38,7 @@ RUN apt-get install -yq sudo
 RUN echo "$APP_USER ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # ssh
-ARG ssh_pub_key
+ARG ssh_pub_host
 
 RUN apt-get install -yq openssh-client openssh-server
 
