@@ -38,8 +38,6 @@ RUN apt-get install -yq sudo
 RUN echo "$APP_USER ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # ssh
-ARG ssh_pub_host
-ARG ssh_prv_key
 ARG ssh_pub_key
 
 RUN apt-get install -yq openssh-client openssh-server
@@ -50,20 +48,10 @@ RUN chmod 0700 /home/$APP_USER/.ssh
 RUN echo "Host *" > /home/$APP_USER/.ssh/config
 RUN chmod 0644 /home/$APP_USER/.ssh/config
 
-RUN ssh-keyscan github.com > /home/$APP_USER/.ssh/known_hosts
-RUN chmod 0644 /home/$APP_USER/.ssh/known_hosts
-
 RUN ssh-keygen -q -t rsa -N '' -f /home/$APP_USER/.ssh/id_rsa
 RUN chmod 0600 /home/$APP_USER/.ssh/id_rsa
 RUN echo " IdentityFile /home/$APP_USER/.ssh/id_rsa" >> /home/$APP_USER/.ssh/config
 RUN chmod 0644 /home/$APP_USER/.ssh/id_rsa.pub
-
-RUN echo "$ssh_prv_key" > /home/$APP_USER/.ssh/id_host
-RUN chmod 600 /home/$APP_USER/.ssh/id_host
-RUN echo " IdentityFile /home/$APP_USER/.ssh/id_host" >> /home/$APP_USER/.ssh/config
-
-RUN echo "$ssh_pub_key" > /home/$APP_USER/.ssh/id_host.pub
-RUN chmod 0644 /home/$APP_USER/.ssh/id_host.pub
 
 RUN echo "$ssh_pub_host" > /home/$APP_USER/.ssh/authorized_keys
 RUN chmod 0600 /home/$APP_USER/.ssh/authorized_keys

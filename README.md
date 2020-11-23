@@ -8,10 +8,12 @@ docker network create \
 ```
 
 ```
-docker build github.com/ngonzalez/debian-stretch --no-cache -t debian-stretch \
-    --build-arg ssh_prv_key="$(cat ~/.ssh/debian-stretch/id_rsa)" \
-    --build-arg ssh_pub_key="$(cat ~/.ssh/debian-stretch/id_rsa.pub)" \
+docker build github.com/ngonzalez/debian-stretch --no-cache -t ngonzalez121/debian-stretch \
     --build-arg ssh_pub_host="$(cat ~/.ssh/id_rsa.pub)"
+```
+
+```
+docker push ngonzalez121/debian-stretch
 ```
 
 ```
