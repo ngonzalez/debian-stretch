@@ -58,5 +58,8 @@ RUN chmod 0600 /home/$APP_USER/.ssh/authorized_keys
 
 RUN chown -R $APP_USER: /home/$APP_USER/.ssh
 
+# ansible requirements
+RUN apt-get install -yq python3
+
 # system init
 CMD [ "/sbin/init" ]
