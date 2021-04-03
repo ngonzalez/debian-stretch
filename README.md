@@ -83,12 +83,12 @@ kubectl -n $NAMESPACE describe services
 #### ssh into pod
 ```
 gcloud compute ssh --zone $ZONE <NODE> --project $PROJECT_NAME --container=<POD>
-# gcloud compute ssh --zone $ZONE ngonzalez@gke-kibana-default-pool-f3844d36-m1v9 --project $PROJECT_NAME --container=04e1522d56c7
+# gcloud compute ssh --zone $ZONE ngonzalez@gke-kibana-default-pool-f3844d36-m1v9 --project $PROJECT_NAME --container=73d711eb28b2
 ```
 
 ```
 ssh -J <GCLOUD_USER>@<NODE_EXTERNAL_IP> <USER>@<POD_IP>
-# ssh -J ngonzalez@35.228.79.139 debian@10.108.0.10
+# ssh -J ngonzalez@35.228.79.139 debian@10.108.0.11
 ```
 
 ```
