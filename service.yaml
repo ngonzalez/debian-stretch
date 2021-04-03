@@ -3,10 +3,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kibana
-  namespace: hebe
+  namespace: effilab
 spec:
   type: LoadBalancer
-  loadBalancerIP: 35.228.89.212
+  loadBalancerIP: 35.228.81.212
   selector:
     run: debian
   ports:
