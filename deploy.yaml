@@ -28,8 +28,6 @@ spec:
           containerPort: 4000
         - name: logstash-beats
           containerPort: 5044
-        - name: logstash-gelf
-          containerPort: 12201
         - name: nginx
           containerPort: 8000
         securityContext:

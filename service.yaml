@@ -22,6 +22,3 @@ spec:
     - port: 5044
       name: logstash-beats
       targetPort: 5044
-    - port: 12201
-      name: logstash-gelf
-      targetPort: 12201
