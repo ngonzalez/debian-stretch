@@ -1,6 +1,6 @@
 # debian-stretch
 
-![kisspng-docker-microservices-application-software-cloud-co-docker-logo-software-logo-5b706279caa081 27892087153409189783](https://user-images.githubusercontent.com/26479/113611336-aa143a80-964e-11eb-9ced-4d6ceca2fd7f.jpg)
+![docker_facebook_share](https://user-images.githubusercontent.com/26479/113612228-d7151d00-964f-11eb-9d5c-66b8c07ca5cc.png)
 
 #### build image
 ```
