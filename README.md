@@ -29,6 +29,10 @@ docker push $IMAGE_TAG
 
 #### push to google container registry
 ```
+export PROJECT_NAME='project'
+```
+
+```
 docker tag $IMAGE_TAG gcr.io/$PROJECT_NAME/$IMAGE_TAG
 ```
 
