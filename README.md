@@ -33,9 +33,9 @@ export PROJECT_NAME='project'
 ```
 
 ```
-docker tag $IMAGE_TAG gcr.io/$PROJECT_NAME/$IMAGE_TAG
+docker tag $IMAGE_TAG gcr.io/$PROJECT_NAME/$IMAGE_NAME
 ```
 
 ```
-docker push gcr.io/$PROJECT_NAME/$IMAGE_TAG
+docker push gcr.io/$PROJECT_NAME/$IMAGE_NAME
 ```
